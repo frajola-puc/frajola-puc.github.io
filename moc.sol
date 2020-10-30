@@ -21,14 +21,16 @@ contract MasterOwnershipControl {
         string memory _sLongDescription
     //) public payable returns(uint256) { 
     ) public returns(uint256) { 
-        vAsset.push( Asset(
+        Asset memory oAsset = new Asset(
             msg.sender,
             _sName,
             _sCPF,
             _sShortDescription,
             _sLongDescription        
-            ));
-        return vAsset.length;
+            );
+        vAsset.push(oAsset);
+        //return vAsset.length;
+        return (address(oAsset));
     }
     
     function updateAsset(
@@ -51,12 +53,17 @@ contract MasterOwnershipControl {
     
     function getAssetByCPF(
         string memory _sCPF
-    ) public view returns(address objectAddress) {
+    ) public view returns(string memory) {
         for (uint8 i = 0; i < vAsset.length; i++) {
             if (vAsset[i].sCPF == _sCPF) {
-                return vAsset[i];
+                return (string(abi.encodePacked(
+                    vAsset[i].sName,
+                    vAsset[i].sCPF,
+                    vAsset[i].sShortDescription,
+                    vAsset[i].sLongDescription
+                )));
             }
         }
-        return (address(null));
+        return ("");
     }
 }
