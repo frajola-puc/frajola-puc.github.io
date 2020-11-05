@@ -7,6 +7,10 @@ pragma solidity ^0.7.0;
 
 //0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
 
+// PersonalToken=14a3b4207599f2b66de9cfa197e33204a43b50ed
+// MetamaskToken=0xeb591C7ad088f0B0D91eE2b529d82F355D786B87
+// Account=0x5B38Da6a701c568545dCfcB03FcB875f56beddC4 (MIT)
+
 contract MasterOwnershipControl {
     address internal oAddress;
     uint internal uiRegistrationPrice;             //Preco de Registro
@@ -15,46 +19,56 @@ contract MasterOwnershipControl {
     mapping (string => address) internal mapCPF;   //Busca pelo CPF
     uint uiAssetCount;                             //Quantidade de Asset
 
+    event AssetEvent(address oAddress_);
+
     constructor() { oAddress = msg.sender; uiRegistrationPrice=10; uiAssetCount=0; }
     
     function newAsset(
         string memory _sName,
+        string memory _sEmail,
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
     ) public payable newAssetCheck(uiRegistrationPrice) { 
-        Asset oAsset = new Asset(
+        Asset oAsset_ = new Asset(
             msg.sender,
             _sName,
+            _sEmail,
             _sCPF,
             _sShortDescription,
             _sLongDescription        
             );
-        mapAsset[address(oAsset)] = oAsset;
-        mapAddress[uiAssetCount] = address(oAsset);
+        mapAsset[address(oAsset_)] = oAsset_;
+        mapAddress[uiAssetCount] = address(oAsset_);
         //vAsset.push(oAsset);
         uiAssetCount+=1;
+
+        emit AssetEvent(address(oAsset_));
     }
     
     function updateAsset(
-        address _oAddress,
+        uint _uiAddress,
         string memory _sName,
+        string memory _sEmail,
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
-    ) public updateAssetCheck(_oAddress) { 
-        //Asset oAsset_ = listAsset[_oAddress];
-        Asset oAsset_ = Asset(_oAddress);
+    ) public updateAssetCheck(_uiAddress) { 
+//        Asset oAsset_ = listAsset[_oAddress];
+        Asset oAsset_ = mapAsset[mapAddress[_uiAddress]];
+//        Asset oAsset_ = Asset(_oAddress);
         oAsset_.updateAsset(
             _sName,
+            _sEmail,
             _sCPF,
             _sShortDescription,
             _sLongDescription        
         );
+        emit AssetEvent(address(oAsset_));
     }
     
-    modifier updateAssetCheck(address _oAddress) {
-        address oAddress_ = mapAsset[_oAddress].getAddress();
+    modifier updateAssetCheck(uint _uiAddress) {
+        address oAddress_ = mapAsset[mapAddress[_uiAddress]].getAddress();
         require(oAddress_ != address(0x00), "There isn't this contract!");
         require(msg.sender == oAddress_, "Unauthorized operation!");
          _;
@@ -76,6 +90,7 @@ contract MasterOwnershipControl {
         if ( address(oAsset_) != address(0x00) ) {
             return (string(abi.encodePacked(
                 oAsset_.getName(),
+                oAsset_.getEmail(),
                 oAsset_.getCPF(),
                 oAsset_.getShortDescription(),
                 oAsset_.getLongDescription()
@@ -84,23 +99,25 @@ contract MasterOwnershipControl {
         return (string(abi.encodePacked("")));
     }
     function getAssetByKey(
-        uint _oAddress
+        uint _uiAddress
     ) public view returns (
         string memory, 
         string memory, 
+        string memory,
         string memory, 
         string memory
     ) {
-        Asset oAsset_ = mapAsset[mapAddress[_oAddress]];
+        Asset oAsset_ = mapAsset[mapAddress[_uiAddress]];
         if ( address(oAsset_) != address(0x00) ) {
             return (
                 oAsset_.getName(),
+                oAsset_.getEmail(),
                 oAsset_.getCPF(),
                 oAsset_.getShortDescription(),
                 oAsset_.getLongDescription()
             );
         }
-        return ("","","","");
+        return ("","","","","");
     }
     /*
     function getAssetByCPF(
@@ -133,21 +150,24 @@ contract MasterOwnershipControl {
 contract Asset {
     address oAddress;
     string sName;
+    string sEmail;
     string sCPF;
     string sShortDescription;
     string sLongDescription;
     
-    event AssetUpdated(address oAddress_);
+    //event AssetUpdated(address oAddress_);
 
     constructor (
         address _oAddress,
         string memory _sName,
+        string memory _sEmail,
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
     )  { 
         oAddress = _oAddress;
         sName = _sName;
+        sEmail = _sEmail;
         sCPF = _sCPF;
         sShortDescription = _sShortDescription;
         sLongDescription = _sLongDescription;
@@ -155,15 +175,17 @@ contract Asset {
     
     function updateAsset(
         string memory _sName,
+        string memory _sEmail,
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
     ) public { 
         sName = _sName;
+        sEmail = _sEmail;
         sCPF = _sCPF;
         sShortDescription = _sShortDescription;
         sLongDescription = _sLongDescription;
-        emit AssetUpdated(address(this));
+        //emit AssetUpdated(address(this));
     }
 
     function getAddress() public view returns(address) {
@@ -171,6 +193,9 @@ contract Asset {
     }
     function getName() public view returns(string memory) {
         return sName;
+    }
+    function getEmail() public view returns(string memory) {
+        return sEmail;
     }
     function getCPF() public view returns(string memory) {
         return sCPF;

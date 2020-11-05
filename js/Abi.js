@@ -1,4 +1,4 @@
-const address = "0x68a9A07f464933ed6e24A88038395E30a50dBEF3";
+const address = "0xd40D25F18267E60547555e251E5aDDe331807E35";
 const abi = [
 	{
 		"inputs": [

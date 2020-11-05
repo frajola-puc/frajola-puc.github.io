@@ -5,7 +5,12 @@ async function runRegistrar () {
     var sCpf = document.getElementById("idCpf").value;
     var sDescricaoCurta = document.getElementById("idDescricaoCurta").value;
     var sDescricaoLonga = document.getElementById("idDescricaoLonga").value;
-    if(idNome === "" || idEmail === "" || idCpf === "" || idDescricaoCurta === "") {
+    if(
+        idNome === "" || 
+        idEmail === "" || 
+        idCpf === "" || 
+        idDescricaoCurta === ""
+    ) {
       alert("Campos Mandatorios: Nome, Email, CPF, e Descrição Curta.");
       return;
     }
@@ -55,22 +60,3 @@ async function doAtualizaRegistro () {
     })
 }
 */
-/*  
-function copia(id) {
-    var copyText = document.getElementById(id);
- 
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
-  
-    document.execCommand("copy");
-}
-
-function copiaEndereco() {
-    var copyText = document.getElementById("enderecoContrato");
-  
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
-
-    document.execCommand("copy");
-}
-*/  
