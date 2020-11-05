@@ -2,7 +2,7 @@
 <html>
 
 <head>
-<link rel="stylesheet" href="comum.css">
+<link rel="stylesheet" href="./css/comum.css">
 <!-- <link rel="stylesheet" href="registro.css"> -->
 <title>MOC-Options</title>
 <style>
@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<img src="Logo.png" alt="Avatar" style="width:200px" class="logo_icon">
+<img src="./pic/Logo.png" alt="Avatar" style="width:200px">
 <br>
 
 <br>
@@ -41,6 +41,8 @@
 <div class="_container">
 <form action="/registrar_action.php">
 <ul>
+    <label for="idIndice">Chave Identificadora</label>
+    <input type="text" id="idIndice" name="sIndice" placeholder="Chave Identificadora.." disabled>
     <label for="idNome">Nome Completo</label>
     <input type="text" id="idNome" name="sNome" placeholder="Nome Completo..">
     <label for="idEmail">Email</label>
@@ -56,7 +58,7 @@
     <br>
     <br>
     <br>
-    <input type="submit" value="Registrar">
+    <input type="submit" value="Registrar" onclick="runRegistrar()">
 </ul>
 </form>
 </div>
