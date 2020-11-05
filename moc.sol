@@ -7,46 +7,22 @@ pragma solidity ^0.7.0;
 
 //0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
 
-/*
-contract HelloWorld {
-    function get() public pure returns (string memory){
-        return 'Hello Contracts';
-    }
-}
-*/
-/*
-contract HelloWorld {
-
-    string saySomething;
-
-    constructor() {
-        saySomething = "Hello World!";
-    }
-
-    function speak() public view returns(string memory) {
-        return saySomething;
-    }
-
-    function saySomethingElse(string memory newSaying) public  returns(bool success) {
-        saySomething = newSaying;
-        return true;
-    }
-
-}
-*/
-
 contract MasterOwnershipControl {
-    address oOwner;
-    mapping(address => Asset) listAAsset;
-    
-    constructor() { oOwner = msg.sender; }
+    address internal oAddress;
+    uint internal uiRegistrationPrice;             //Preco de Registro
+    mapping(address => Asset) internal mapAsset;   //Mapping Principal
+    mapping (uint => address) internal mapAddress; //Busca pela Key
+    mapping (string => address) internal mapCPF;   //Busca pelo CPF
+    uint uiAssetCount;                             //Quantidade de Asset
+
+    constructor() { oAddress = msg.sender; uiRegistrationPrice=10; uiAssetCount=0; }
     
     function newAsset(
         string memory _sName,
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
-    ) public  { 
+    ) public payable newAssetCheck(uiRegistrationPrice) { 
         Asset oAsset = new Asset(
             msg.sender,
             _sName,
@@ -54,98 +30,123 @@ contract MasterOwnershipControl {
             _sShortDescription,
             _sLongDescription        
             );
-        listAAsset[address(oAsset)] = oAsset;
+        mapAsset[address(oAsset)] = oAsset;
+        mapAddress[uiAssetCount] = address(oAsset);
+        //vAsset.push(oAsset);
+        uiAssetCount+=1;
     }
     
     function updateAsset(
-        address memory _oOwner,
+        address _oAddress,
         string memory _sName,
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
-    ) public { 
-        oOwner_ = getAssetByAddress(_oOwner);
-        
-        oOwner.updateAsset(
+    ) public updateAssetCheck(_oAddress) { 
+        //Asset oAsset_ = listAsset[_oAddress];
+        Asset oAsset_ = Asset(_oAddress);
+        oAsset_.updateAsset(
             _sName,
             _sCPF,
             _sShortDescription,
             _sLongDescription        
         );
     }
-
-    function getAssetByAddress(
-        string memory _sCPF
-    ) public view returns(string memory) {
-        for (uint8 i = 0; i < vAsset.length; i++) {
-            if (vAsset[i].sCPF == _sCPF) {
-                return (string(abi.encodePacked(
-                    vAsset[i].sName,
-                    vAsset[i].sCPF,
-                    vAsset[i].sShortDescription,
-                    vAsset[i].sLongDescription
-                )));
-            }
-        }
-        return ("");
-    }
-
-    function getAsset(
-    ) public view returns(string memory) {
-        return (string(abi.encodePacked(
-            iOwner,";",sName,";",sCPF,";",sShortDescription,";",sLongDescription
-            )));
-    }
     
-    function updateAsset(
-        string memory _sName,
-        string memory _sCPF,
-        string memory _sShortDescription,
-        string memory _sLongDescription
-    ) public returns(uint256) { 
-        for (uint8 i = 0; i < vAsset.length; i++) {
-            if (vAsset[i].sCPF == _sCPF) {
-                vAsset[i].sName=_sName;
-                vAsset[i].sCPF =_sCPF;
-                vAsset[i].sShortDescription=_sShortDescription;
-                vAsset[i].sLongDescription =_sLongDescription;
-                return i;
-            }
-        }
-        return -1;
+    modifier updateAssetCheck(address _oAddress) {
+        address oAddress_ = mapAsset[_oAddress].getAddress();
+        require(oAddress_ != address(0x00), "There isn't this contract!");
+        require(msg.sender == oAddress_, "Unauthorized operation!");
+         _;
     }
-    
+    modifier newAssetCheck(uint _uiRegistrationPrice) {
+        if (msg.value >= uiRegistrationPrice) {
+         _;
+        }
+    }
+    modifier onlyMocOwner {  //MOC = MasterOwnershipControl
+      require(msg.sender == oAddress, "Unauthorized operation!");
+      _;
+    }
+
     function getAssetByCPF(
         string memory _sCPF
-    ) public view returns(string memory) {
-        for (uint8 i = 0; i < vAsset.length; i++) {
-            if (vAsset[i].sCPF == _sCPF) {
+    ) public view returns (string memory) {
+        Asset oAsset_ = mapAsset[mapCPF[_sCPF]];
+        if ( address(oAsset_) != address(0x00) ) {
+            return (string(abi.encodePacked(
+                oAsset_.getName(),
+                oAsset_.getCPF(),
+                oAsset_.getShortDescription(),
+                oAsset_.getLongDescription()
+            )));
+        }
+        return (string(abi.encodePacked("")));
+    }
+    function getAssetByKey(
+        uint _oAddress
+    ) public view returns (
+        string memory, 
+        string memory, 
+        string memory, 
+        string memory
+    ) {
+        Asset oAsset_ = mapAsset[mapAddress[_oAddress]];
+        if ( address(oAsset_) != address(0x00) ) {
+            return (
+                oAsset_.getName(),
+                oAsset_.getCPF(),
+                oAsset_.getShortDescription(),
+                oAsset_.getLongDescription()
+            );
+        }
+        return ("","","","");
+    }
+    /*
+    function getAssetByCPF(
+        string memory _sCPF
+    ) public view returns (string memory) {
+        //for (uint8 i = 0; i < vAsset.length; i++) {
+        for (uint8 i = 0; i < uiAssetCount ; i++) {
+            //Asset oAsset_ = vAsset[i];
+            Asset oAsset_ = mapAsset[mapAddress[i]];
+            if (
+                //oAsset_.getCPF() == _sCPF) {
+                keccak256(bytes(oAsset_.getCPF())) == keccak256(bytes(_sCPF)) ) {
+                //Asset oAsset_ = vAsset[i];
                 return (string(abi.encodePacked(
-                    vAsset[i].sName,
-                    vAsset[i].sCPF,
-                    vAsset[i].sShortDescription,
-                    vAsset[i].sLongDescription
+                    oAsset_.getName(),
+                    oAsset_.getCPF(),
+                    oAsset_.getShortDescription(),
+                    oAsset_.getLongDescription()
                 )));
             }
         }
         return ("");
+    }
+    */
+    function changePrice(uint _uiRegistrationPrice) public onlyMocOwner {
+      uiRegistrationPrice = _uiRegistrationPrice;
     }
 }
 
 contract Asset {
-    address iOwner;
+    address oAddress;
     string sName;
     string sCPF;
     string sShortDescription;
     string sLongDescription;
+    
+    event AssetUpdated(address oAddress_);
 
     constructor (
+        address _oAddress,
         string memory _sName,
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
     )  { 
-        iOwner = msg.sender;
+        oAddress = _oAddress;
         sName = _sName;
         sCPF = _sCPF;
         sShortDescription = _sShortDescription;
@@ -162,13 +163,31 @@ contract Asset {
         sCPF = _sCPF;
         sShortDescription = _sShortDescription;
         sLongDescription = _sLongDescription;
+        emit AssetUpdated(address(this));
     }
-    
+
+    function getAddress() public view returns(address) {
+        return oAddress;
+    }
+    function getName() public view returns(string memory) {
+        return sName;
+    }
+    function getCPF() public view returns(string memory) {
+        return sCPF;
+    }
+    function getShortDescription() public view returns(string memory) {
+        return sShortDescription;
+    }
+    function getLongDescription() public view returns(string memory) {
+        return sLongDescription;
+    }
+/*    
     function getAsset(
     ) public view returns(string memory) {
         return (string(abi.encodePacked(
             iOwner,";",sName,";",sCPF,";",sShortDescription,";",sLongDescription
             )));
     }
+*/
 }
 
