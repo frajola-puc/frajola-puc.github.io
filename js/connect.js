@@ -1,6 +1,5 @@
-/*
-const contract_address = "0xcf29e2ba50b94cc803dadddac7893ebbefc88a0a";
-//const contract_address = "d40D25F18267E60547555e251E5aDDe331807E35";
+const contract_address = "0x94068ddf089019b542e5e1465b210467577750d6";
+
 const ethEnabled = () => {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
@@ -18,9 +17,22 @@ if (!ethEnabled()) {
     alert("Ethereum não detectado!");
 } else {
     oAccount = web3.eth.getAccounts();
-    //alert("connect: L20: oAccount = "+oAccount);
     window.MasterOwnershipControl = new web3.eth.Contract(contract_abi, contract_address);
-//    alert("connect: L20: Contract = "+window.MasterOwnershipControl);
     getCoinBase();
 }
-*/
+
+if (!ethEnabled()) {
+    alert("Ethereum não detectado!");
+} else {
+    try {
+        var oAccount = web3.eth.getAccounts();
+        window.MasterOwnershipControl = new web3.eth.Contract(
+            contract_abi, 
+            contract_address
+        );
+        getCoinBase();
+    } catch (err) {
+        alert("ERROR: Tentando instanciar o 'web.eth.Contract' : "+err);
+    }   
+}
+  

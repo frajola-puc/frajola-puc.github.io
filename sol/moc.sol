@@ -21,7 +21,11 @@ contract MasterOwnershipControl {
 
     event AssetEvent(address oAddress_);
 
-    constructor() { oAddress = msg.sender; uiRegistrationPrice=10; uiAssetCount=0; }
+    constructor() { 
+        oAddress = msg.sender; 
+        uiRegistrationPrice=10; 
+        uiAssetCount=0; 
+    }
     
     function newAsset(
         string memory _sName,
@@ -29,8 +33,7 @@ contract MasterOwnershipControl {
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
-    //) public payable newAssetCheck(uiRegistrationPrice) { 
-    ) public { 
+    ) public payable newAssetCheck(uiRegistrationPrice) { 
         Asset oAsset_ = new Asset(
             msg.sender,
             _sName,
@@ -41,7 +44,6 @@ contract MasterOwnershipControl {
             );
         mapAsset[address(oAsset_)] = oAsset_;
         mapAddress[uiAssetCount] = address(oAsset_);
-        //vAsset.push(oAsset);
         uiAssetCount+=1;
 
         emit AssetEvent(address(oAsset_));
@@ -54,11 +56,8 @@ contract MasterOwnershipControl {
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
-    //) public updateAssetCheck(_uiAddress) { 
-    ) public { 
-//        Asset oAsset_ = listAsset[_oAddress];
+    ) public updateAssetCheck(_uiAddress) { 
         Asset oAsset_ = mapAsset[mapAddress[_uiAddress]];
-//        Asset oAsset_ = Asset(_oAddress);
         oAsset_.updateAsset(
             _sName,
             _sEmail,
@@ -121,42 +120,11 @@ contract MasterOwnershipControl {
         }
         return ("","","","","");
     }
-    /*
-    function getAssetByCPF(
-        string memory _sCPF
-    ) public view returns (string memory) {
-        //for (uint8 i = 0; i < vAsset.length; i++) {
-        for (uint8 i = 0; i < uiAssetCount ; i++) {
-            //Asset oAsset_ = vAsset[i];
-            Asset oAsset_ = mapAsset[mapAddress[i]];
-            if (
-                //oAsset_.getCPF() == _sCPF) {
-                keccak256(bytes(oAsset_.getCPF())) == keccak256(bytes(_sCPF)) ) {
-                //Asset oAsset_ = vAsset[i];
-                return (string(abi.encodePacked(
-                    oAsset_.getName(),
-                    oAsset_.getCPF(),
-                    oAsset_.getShortDescription(),
-                    oAsset_.getLongDescription()
-                )));
-            }
-        }
-        return ("");
-    }
-    */
     function changePrice(uint _uiRegistrationPrice) public onlyMocOwner {
       uiRegistrationPrice = _uiRegistrationPrice;
     }
-    
-    //function getAddress() public view returns (address) {
-    //    return oAddress;
-    //}
-    
-    //function getTest() public view returns (string memory) {
-    //    return "Test: Sucesso!";
-    //}
-    function testGetMainContractAddress() public view returns (address) {
-        return address(this);
+    function runTest() public view returns (address) {
+        return (address(this));
     }
 }
 
@@ -219,13 +187,4 @@ contract Asset {
     function getLongDescription() public view returns(string memory) {
         return sLongDescription;
     }
-/*    
-    function getAsset(
-    ) public view returns(string memory) {
-        return (string(abi.encodePacked(
-            iOwner,";",sName,";",sCPF,";",sShortDescription,";",sLongDescription
-            )));
-    }
-*/
 }
-
