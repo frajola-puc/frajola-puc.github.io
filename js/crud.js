@@ -5,6 +5,7 @@ async function runRegistrar () {
     var sCpf = document.getElementById("idCpf").value;
     var sDescricaoCurta = document.getElementById("idDescricaoCurta").value;
     var sDescricaoLonga = document.getElementById("idDescricaoLonga").value;
+
     if(
         idNome === "" || 
         idEmail === "" || 
@@ -16,22 +17,25 @@ async function runRegistrar () {
     }
 
     web3.eth.getAccounts().then(async (accounts) => {
-      getCoinBase();
+        getCoinBase();
 
-    return window.MasterOwnershipControl.methods.newAsset(
-        sNome,
-        sMail,
-        sCpf,
-        sDescricaoCurta,
-        sDescricaoLonga
-    ).send({
-        from:window.coinbase
-    });
+        alert("crud.js: L22: Aqui...");
+        return window.MasterOwnershipControl.methods.newAsset(
+            sNome,
+            sMail,
+            sCpf,
+            sDescricaoCurta,
+            sDescricaoLonga
+        ).send({
+            from:window.coinbase
+        });
     }).then((value) => {
-      var sIndice = document.getElementById("idIndice");
-      sIndice.value = value["events"][0]["oAddress_"];
+        alert("crud.js: L34: Aqui...");
+        var sIndice = document.getElementById("idIndice");
+        sIndice.value = value["events"][0]["oAddress_"];
+        alert("crud.js: L36: Aqui...");
 
-      sIndice.value.disabled = false;
+        sIndice.value.disabled = false;
     })
 }
 /*  
