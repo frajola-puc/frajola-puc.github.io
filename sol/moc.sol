@@ -29,7 +29,8 @@ contract MasterOwnershipControl {
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
-    ) public payable newAssetCheck(uiRegistrationPrice) { 
+    //) public payable newAssetCheck(uiRegistrationPrice) { 
+    ) public { 
         Asset oAsset_ = new Asset(
             msg.sender,
             _sName,
@@ -53,7 +54,8 @@ contract MasterOwnershipControl {
         string memory _sCPF,
         string memory _sShortDescription,
         string memory _sLongDescription
-    ) public updateAssetCheck(_uiAddress) { 
+    //) public updateAssetCheck(_uiAddress) { 
+    ) public { 
 //        Asset oAsset_ = listAsset[_oAddress];
         Asset oAsset_ = mapAsset[mapAddress[_uiAddress]];
 //        Asset oAsset_ = Asset(_oAddress);
@@ -144,6 +146,17 @@ contract MasterOwnershipControl {
     */
     function changePrice(uint _uiRegistrationPrice) public onlyMocOwner {
       uiRegistrationPrice = _uiRegistrationPrice;
+    }
+    
+    //function getAddress() public view returns (address) {
+    //    return oAddress;
+    //}
+    
+    //function getTest() public view returns (string memory) {
+    //    return "Test: Sucesso!";
+    //}
+    function testGetMainContractAddress() public view returns (address) {
+        return address(this);
     }
 }
 

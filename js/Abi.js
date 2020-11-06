@@ -1,4 +1,5 @@
-const abi = 
+/*
+const contract_abi = 
 [
 	{
 		"inputs": [
@@ -147,4 +148,6 @@ const abi =
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}
-];
+]
+;
+/*
