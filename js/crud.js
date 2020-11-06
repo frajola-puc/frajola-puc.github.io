@@ -20,7 +20,7 @@ const contract_abi =
 	}
 ]
 ;
-const contract_address = "0xf5feaf5825b34e354b3fd38375a8df97419490c4";
+const contract_address = "0x94068ddf089019b542e5e1465b210467577750d6";
 //const contract_address = "0xe5d890353e0160b0ab5a8fb898e4e1de46032cdd";
 //const contract_address = "0xeb591C7ad088f0B0D91eE2b529d82F355D786B87";
 const ethEnabled = () => {
