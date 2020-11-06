@@ -42,15 +42,21 @@ async function getInternalTest () {
 
 
 async function getExternalTest () {
-    alert("crud.js: L56: sGetTest = "+sGetTest);
-    var sGetTest = await window.MasterOwnershipControl.methods.runTest().call();
-    alert("crud.js: L58: sGetTest = "+sGetTest);
-    document.getElementById("idIndice").value = await sGetTest;
-    alert("crud.js: L60: sGetTest = "+sGetTest);
+    var len = window.MasterOwnershipControl.methods.runTest().call().then((value) => {
+        var input = document.getElementById("idIndice");
+        input.value = value;
+    });
 };
 
-
 /*
+async function getExternalTest () {
+    //alert("crud.js: L45: sGetTest = "+sGetTest);
+    var sGetTest = await window.MasterOwnershipControl.methods.runTest().call();
+    //alert("crud.js: L47: sGetTest = "+sGetTest);
+    document.getElementById("idIndice").value = 
+        await window.MasterOwnershipControl.methods.runTest().call();
+    //alert("crud.js: L49: sGetTest = "+sGetTest);
+};
 async function getExternalTest () {
     alert("crud.js: L64: getExternalTest = ");
     var len = window.MasterOwnershipControl.methods.runTest().call().then((value) => {
@@ -147,14 +153,14 @@ async function doAtualizaRegistro () {
 if (!ethEnabled()) {
     alert("Ethereum não detectado!");
 } else {
-    oAccount = web3.eth.getAccounts();
-    alert("crud: L151: oAccount = "+oAccount);
+    //oAccount = web3.eth.getAccounts();
+    //alert("crud: L151: oAccount = "+oAccount);
 //    window.MasterOwnershipControl = new web3.eth.Contract(contract_abi, contract_address);
     window.MasterOwnershipControl = new web3.eth.Contract(
         contract_abi, 
         contract_address
     );
-    alert("crud: L157: Contract = "+window.MasterOwnershipControl);
+    //alert("crud: L157: Contract = "+window.MasterOwnershipControl);
     getCoinBase();
     //alert("crdu: L159: Contract = "+window.MasterOwnershipControl);
 }
