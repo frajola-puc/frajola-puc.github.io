@@ -11,6 +11,15 @@ async function getExternalTest () {
     }   
 }
 
+async function runConsultar () {
+  try {
+      var sTest = await window.MasterOwnershipControl.methods.runTest().call();
+      document.getElementById("idIndice").value = sTest;
+  } catch (err) {
+      alert("ERROR: Tentando executar um simples teste : "+err);
+  }   
+}
+
 async function runRegistrar () {
     var sIndice = document.getElementById("idIndice").value;
     var sNome = document.getElementById("idNome").value;
@@ -44,7 +53,7 @@ async function runRegistrar () {
     
 }
 
-async function doAtualizaRegistro () {
+async function runAtualizarRegistro () {
     var regFederal = document.getElementById("inputRegistroFederal").value;
     var nomeDono = document.getElementById("inputNomeDono").value;
     var cpf = document.getElementById("inputCPF").value;
