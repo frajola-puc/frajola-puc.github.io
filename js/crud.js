@@ -10,9 +10,9 @@ const contract_abi =
 		"name": "runTest",
 		"outputs": [
 			{
-				"internalType": "string",
-				"name": "sTest_",
-				"type": "string"
+				"internalType": "address",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -20,13 +20,16 @@ const contract_abi =
 	}
 ]
 ;
-
-const contract_address = "0xA361c58FA5D2631CB9c8122Ba43CD52fc2E53053";
+const contract_address = "0xf5feaf5825b34e354b3fd38375a8df97419490c4";
+//const contract_address = "0xe5d890353e0160b0ab5a8fb898e4e1de46032cdd";
 //const contract_address = "0xeb591C7ad088f0B0D91eE2b529d82F355D786B87";
 const ethEnabled = () => {
     if (window.ethereum) {
+      //alert("crud: L28: ethEnabled : ");
+
       window.web3 = new Web3(window.ethereum);
       window.ethereum.enable();
+      //alert("crud: L28: ethEnabled = true.");
       return true;
     }
     return false;
@@ -40,15 +43,50 @@ async function getInternalTest () {
     document.getElementById("idIndice").value = "123456";
 };
 
-
 async function getExternalTest () {
     var len = window.MasterOwnershipControl.methods.runTest().call().then((value) => {
-        var input = document.getElementById("idIndice");
-        input.value = value;
+      var input = document.getElementById("idIndice");
+      //alert("crud: L49: value : "+value);
+      input.value = value;
     });
-};
+}
 
 /*
+async function getExternalTest () {
+    document.getElementById("idIndice").value = "MAICON";
+    alert("crud: L45: getExternalTest : "+"Inicio");
+    try {
+        alert("crud: L47: Antes : "+"runTest()");
+        var sTest = await window.MasterOwnershipControl.methods.runTest().call();
+        alert("crud: L49: Depois : "+"runTest()");
+        alert("crud.js: L50: sGetTest = "+sTest);
+        document.getElementById("idIndice").value = sTest;
+        //    await window.MasterOwnershipControl.methods.runTest().call();
+//        alert("crud: L53: document.getElementById("idIndice").value : "+
+//            document.getElementById("idIndice").value;
+    } catch (err) {
+        alert("ERROR: Tentando executar um simples teste : "+err);
+    }   
+    alert("crud: L56: getExternalTest : "+"Fim");
+}
+*/
+/*
+async function getExternalTest () {
+    alert("crud: L45: getExternalTest : "+"Inicio");
+    try {
+        alert("crud: L47: Antes : "+"runTest()");
+        var len = window.MasterOwnershipControl.methods.runTest().call().then((value) => {
+            var input = document.getElementById("idIndice");
+            input.value = value;
+        });
+        alert("crud: L52: Depois : "+"runTest()");
+        alert("crud: L52: len : "+len);
+        alert("crud: L52: input.value : "+input.value);
+    } catch (err) {
+        alert("ERROR: Tentando executar um simples teste : "+err);
+    }   
+    alert("crud: L56: getExternalTest : "+"Fim");
+}
 async function getExternalTest () {
     //alert("crud.js: L45: sGetTest = "+sGetTest);
     var sGetTest = await window.MasterOwnershipControl.methods.runTest().call();
@@ -56,7 +94,7 @@ async function getExternalTest () {
     document.getElementById("idIndice").value = 
         await window.MasterOwnershipControl.methods.runTest().call();
     //alert("crud.js: L49: sGetTest = "+sGetTest);
-};
+}
 async function getExternalTest () {
     alert("crud.js: L64: getExternalTest = ");
     var len = window.MasterOwnershipControl.methods.runTest().call().then((value) => {
@@ -153,15 +191,28 @@ async function doAtualizaRegistro () {
 if (!ethEnabled()) {
     alert("Ethereum não detectado!");
 } else {
-    //oAccount = web3.eth.getAccounts();
-    //alert("crud: L151: oAccount = "+oAccount);
-//    window.MasterOwnershipControl = new web3.eth.Contract(contract_abi, contract_address);
-    window.MasterOwnershipControl = new web3.eth.Contract(
-        contract_abi, 
-        contract_address
-    );
-    //alert("crud: L157: Contract = "+window.MasterOwnershipControl);
-    getCoinBase();
-    //alert("crdu: L159: Contract = "+window.MasterOwnershipControl);
+    try {
+        //var oAccount = await web3.eth.getAccounts();
+        var oAccount = web3.eth.getAccounts();
+        /*
+        var oAccount;
+        web3.eth.getAccounts().then((accounts) => {
+            alert("crud: L166: accounts[0] = "+accounts[0]);
+            oAccount = accounts[0];
+        })
+        */
+        //alert("crud: L166: oAccount = "+oAccount);
+    //    window.MasterOwnershipControl = new web3.eth.Contract(contract_abi, contract_address);
+        window.MasterOwnershipControl = new web3.eth.Contract(
+            contract_abi, 
+            contract_address
+        );
+        //alert("crud: L175: window.MasterOwnershipControl = "+window.MasterOwnershipControl);
+        getCoinBase();
+        //alert("crdu: L159: Contract (Maicon)= "+window.MasterOwnershipControl);
+    } catch (err) {
+        alert("ERROR: Tentando instanciar o 'web.eth.Contract' : "+err);
+    }   
+    //alert("crud: L182: ethEnaled=OK");
 }
   

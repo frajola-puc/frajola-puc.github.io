@@ -1,6 +1,15 @@
 MetaMesk-MyAccount = 0xeb591C7ad088f0B0D91eE2b529d82F355D786B87
 ======================================================================
 
+https://ropsten.etherscan.io/tx/0xf070a4766418b9fdd00adaef06ac1565ac779c516e4c621b4a96a4adb76e3fa6
+Contract=0xf5feaf5825b34e354b3fd38375a8df97419490c4
+
+https://ropsten.etherscan.io/tx/0x9a8e7697d835ea91945ddcccc0af88b2df58297463aa626bebcbba6657042364
+Contract=0xe5d890353e0160b0ab5a8fb898e4e1de46032cdd
+
+https://explorer.testnet.rsk.co/tx/0xb783bf7c8bb2ea079984a9131116551fca6208ab321d3babd5a80c138e3f51d8
+Contract=0xE5D890353e0160b0ab5A8fb898E4E1dE46032CDd
+
 https://explorer.testnet.rsk.co/tx/0x5506f81d0adf81fed7d227ac4f176a5fcaffe3d5da6307c07d3d8df07f60eb48
 Contract=0xA361c58FA5D2631CB9c8122Ba43CD52fc2E53053
 
