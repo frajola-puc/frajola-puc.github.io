@@ -1,5 +1,5 @@
 const contract_address = 
-"0x9cf398d5a4810947dde805189d08591ad7fdcd0e";
+"0x1b87b14337949506705a9654e3f26a49e24b685b";
 
 const ethEnabled = () => {
     if (window.ethereum) {
