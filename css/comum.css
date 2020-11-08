@@ -1,3 +1,7 @@
+/* 
+    Source:
+    
+*/
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
 h1   {color:  RoyalBlue;;}
 body {
@@ -78,6 +82,25 @@ body {
     background-color: #f2f2f2;
     padding: 30px;
 }
+._div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+._div_label {
+    text-align: left;
+}
+._div_button {
+    text-align: center;
+}
+._div_spinner {
+    text-align: center;
+}
+ul, li {
+    text-align: left;
+    margin: 0; 
+    padding: 0;
+}
 label {
     font-weight: bold;
     font-size: x-small;
@@ -116,9 +139,4 @@ input[type=submit]:hover {
     /*background-color: #45a049; */
     color: black; 
     border: 2px solid MediumSeaGreen
-}
-div {
-   border-radius: 5px;
-   background-color: #f2f2f2;
-   padding: 10px;
 }

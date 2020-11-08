@@ -16,10 +16,10 @@
 </head>
 
 <body>
-<img src="./pic/Logo.png" alt="Avatar" style="width:100px">
-
+<embed src="./_cabecalho.html">
 <div class="_container">
-<form autocomplete="off" >
+<form autocomplete="on" >
+
 <ul>
     <label for="idIndice">Chave Identificadora</label>
     <input type="text" id="idIndice" name="sIndice" placeholder="Chave Identificadora.." >
@@ -38,16 +38,19 @@
     <br>
     <br>
 
-    <button type="button" class="_btn _btn-back" 
-        onclick=
-        "window.location.href='/opcao'"> 
-        <i class="fa fa-oddress-card">Voltar</i>
-    </button>
-    <button type="button" class="_btn _btn-ok" 
-        onclick="runConsultar()">
-        <i class="fa fa-search"> Consultar</i>
-    </button>
+    <div class="_div_button">
+        <button type="button" class="_btn _btn-back" 
+            onclick=
+            "window.location.href='/opcao'"> 
+            <i class="fa fa-chevron-left"> Voltar</i>
+        </button>
+        <button type="button" class="_btn _btn-ok" 
+            onclick="runConsultar()">
+            <i class="fa fa-search"> Consultar</i>
+        </button>
+    </div>
 </ul>
+
 </form>
 </div>
 <br>
