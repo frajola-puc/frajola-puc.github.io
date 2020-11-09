@@ -27,10 +27,11 @@ async function runConsultar () {
     alert("ERROR: Tentando 'Consultar' :\n\n"+err);
   }   
 
+  oDivSpinner.style.display = "none";
+  oDivButton.style.display = "";
+
   if(oGetAsset_[0] !== oAddress.value) {
     alert("ALERT: Contrato não encontrado !");
-    oDivSpinner.style.display = "none";
-    oDivButton.style.display = "";
     return;
   }
 
@@ -41,8 +42,4 @@ async function runConsultar () {
   oAssetType.value      =oGetAsset_[4];
   oDescricaoCurta.value =oGetAsset_[5];
   oDescricaoLonga.value =oGetAsset_[6];
-
-  oDivSpinner.style.display = "none";
-  oDivButton.style.display = "";
-
 }

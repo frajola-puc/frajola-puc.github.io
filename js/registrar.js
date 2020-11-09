@@ -43,6 +43,7 @@ async function runRegistrar () {
   } catch (err) {
     alert("ERROR: Tentando 'Registrar' :\n\n"+err);
   }   
+  
   oDivSpinner.style.display = "none";
   oDivButton.style.display = "";
 }
