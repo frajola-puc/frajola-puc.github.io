@@ -10,7 +10,6 @@ async function runVisualizar () {
   var oDivButton = document.getElementById("idDivButton");
   var oGetAsset_ = null;
 
-  console.log("crud: oAddress.value = "+oAddress.value);
   if(
     oAddress.value === ""
   ) {
