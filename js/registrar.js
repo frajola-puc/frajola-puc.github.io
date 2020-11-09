@@ -11,7 +11,6 @@ async function runRegistrar () {
   var sAssetType = oAssetType.options[oAssetType.selectedIndex].value;
 
 
-  console.log("crud: sAssetType = "+ sAssetType);
   if(
     sName === "" || 
     sMail === "" || 
@@ -28,7 +27,6 @@ async function runRegistrar () {
   oDivButton.style.display = "none";
   try {
     getCoinBase();
-    console.log("crud: L58:  Antes: = "+ "NewAsset()");
     const oNewAssetResult_ = await window.MasterOwnershipControl.methods.newAsset(
       sName,
       sMail,
@@ -47,5 +45,4 @@ async function runRegistrar () {
   }   
   oDivSpinner.style.display = "none";
   oDivButton.style.display = "";
-  console.log("crud: oAddress.value = "+ oAddress.value);
 }

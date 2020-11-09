@@ -20,7 +20,6 @@ async function runConsultar () {
   oDivButton.style.display = "none";
   try {
     getCoinBase();
-    console.log("crud: Antes: = "+ "NewAsset()");
     const oGetAsset_ = await window.MasterOwnershipControl.methods.getAsset(
       oAddress.value
     ).call({from:window.coinbase, gasPrice:0}); // ToDo: Definir um GasPrice.
@@ -37,5 +36,4 @@ async function runConsultar () {
   }   
   oDivSpinner.style.display = "none";
   oDivButton.style.display = "";
-  console.log("crud: oMail.value = "+ oMail.value);
 }
