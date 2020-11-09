@@ -21,7 +21,6 @@ async function runVisualizar () {
   oDivButton.style.display = "none";
   try {
     getCoinBase();
-    console.log("crud: Antes: = "+ "NewAsset()");
     oGetAsset_ = await window.MasterOwnershipControl.methods.getAsset(
       oAddress.value
     ).call({from:window.coinbase, gasPrice:0}); // ToDo: Definir um GasPrice.
@@ -57,8 +56,6 @@ async function runVisualizar () {
   oAssetType.disabled=false;
   oDescricaoCurta.disabled=false;
   oDescricaoLonga.disabled=false;
-
-  console.log("crud: oMail.value = "+ oMail.value);
 }
 
 async function runAtualizar () {
@@ -73,7 +70,6 @@ async function runAtualizar () {
   var oDivButton = document.getElementById("idDivButton");
   var sAssetType = oAssetType.options[oAssetType.selectedIndex].value;
 
-  console.log("crud: oAddress.value = "+oAddress.value);
   if(
     oName.value === "" || 
     oMail.value === "" || 
@@ -89,7 +85,6 @@ async function runAtualizar () {
   oDivButton.style.display = "none";
   try {
     getCoinBase();
-    console.log("crud: Antes: = "+ "NewAsset()");
     const oUpdateAsset_ = await window.MasterOwnershipControl.methods.updateAsset(
       oAddress.value,
       oName.value,
@@ -131,8 +126,6 @@ async function runAtualizar () {
   oAssetType.disabled=true;
   oDescricaoCurta.disabled=true;
   oDescricaoLonga.disabled=true;
-
-  console.log("crud: oMail.value = "+ oMail.value);
 }
 
 async function runRecomecar () {
