@@ -3,6 +3,7 @@ async function runConsultar () {
   var oName = document.getElementById("idNome");
   var oMail = document.getElementById("idEmail");
   var oCpf = document.getElementById("idCpf");
+  var oAssetType = document.getElementById("idAssetType");
   var oDescricaoCurta = document.getElementById("idDescricaoCurta");
   var oDescricaoLonga = document.getElementById("idDescricaoLonga");
   var oDivSpinner = document.getElementById("idDivSpinner");
@@ -20,16 +21,17 @@ async function runConsultar () {
   try {
     getCoinBase();
     console.log("crud: Antes: = "+ "NewAsset()");
-    const oGetAsset_ = await window.MasterOwnershipControl.methods.getAssetByAddress(
+    const oGetAsset_ = await window.MasterOwnershipControl.methods.getAsset(
       oAddress.value
     ).call({from:window.coinbase, gasPrice:0}); // ToDo: Definir um GasPrice.
-    //_myDebug(oNewAssetResult_);
+
     oAddress.value        =oGetAsset_[0];
     oName.value           =oGetAsset_[1];
     oMail.value           =oGetAsset_[2];
     oCpf.value            =oGetAsset_[3];
-    oDescricaoCurta.value =oGetAsset_[4];
-    oDescricaoLonga.value =oGetAsset_[5];
+    oAssetType.value      =oGetAsset_[4];
+    oDescricaoCurta.value =oGetAsset_[5];
+    oDescricaoLonga.value =oGetAsset_[6];
 } catch (err) {
     alert("ERROR: Tentando 'Consultar' :\n\n"+err);
   }   

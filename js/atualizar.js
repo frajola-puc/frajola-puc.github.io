@@ -3,6 +3,7 @@ async function runVisualizar () {
   var oName = document.getElementById("idNome");
   var oMail = document.getElementById("idEmail");
   var oCpf = document.getElementById("idCpf");
+  var oAssetType = document.getElementById("idAssetType");
   var oDescricaoCurta = document.getElementById("idDescricaoCurta");
   var oDescricaoLonga = document.getElementById("idDescricaoLonga");
   var oDivSpinner = document.getElementById("idDivSpinner");
@@ -21,7 +22,7 @@ async function runVisualizar () {
   try {
     getCoinBase();
     console.log("crud: Antes: = "+ "NewAsset()");
-    oGetAsset_ = await window.MasterOwnershipControl.methods.getAssetByAddress(
+    oGetAsset_ = await window.MasterOwnershipControl.methods.getAsset(
       oAddress.value
     ).call({from:window.coinbase, gasPrice:0}); // ToDo: Definir um GasPrice.
     //_myDebug(oNewAssetResult_);
@@ -40,8 +41,9 @@ async function runVisualizar () {
   oName.value           =oGetAsset_[1];
   oMail.value           =oGetAsset_[2];
   oCpf.value            =oGetAsset_[3];
-  oDescricaoCurta.value =oGetAsset_[4];
-  oDescricaoLonga.value =oGetAsset_[5];
+  oAssetType.value      =oGetAsset_[4];
+  oDescricaoCurta.value =oGetAsset_[5];
+  oDescricaoLonga.value =oGetAsset_[6];
 
   oDivSpinner.style.display = "none";
   oDivButton.style.display = "";
@@ -53,7 +55,8 @@ async function runVisualizar () {
   oAddress.disabled=true;
   oName.disabled=false;
   oMail.disabled=false;
-  oCpf.disabled=true;
+  oCpf.disabled=false;
+  oAssetType.disabled=false;
   oDescricaoCurta.disabled=false;
   oDescricaoLonga.disabled=false;
 
@@ -65,16 +68,23 @@ async function runAtualizar () {
   var oName = document.getElementById("idNome");
   var oMail = document.getElementById("idEmail");
   var oCpf = document.getElementById("idCpf");
+  var oAssetType = document.getElementById("idAssetType");
   var oDescricaoCurta = document.getElementById("idDescricaoCurta");
   var oDescricaoLonga = document.getElementById("idDescricaoLonga");
   var oDivSpinner = document.getElementById("idDivSpinner");
   var oDivButton = document.getElementById("idDivButton");
+  var sAssetType = oAssetType.options[oAssetType.selectedIndex].value;
 
   console.log("crud: oAddress.value = "+oAddress.value);
   if(
-    oAddress.value === ""
+    oName.value === "" || 
+    oMail.value === "" || 
+    oCpf.value === "" || 
+    sAssetType === "" ||
+    oDescricaoCurta.value === "" ||
+    oDescricaoLonga.value === ""
   ) {
-    alert("ALERT: Campos mandatórios: Chave Identificadora !");
+    alert("ALERT: Campos mandatórios: Nome, eMail, CPF, Tipo de Assert, Descricao Curta e Descrição Longa !");
     return;
   }
   oDivSpinner.style.display = "";
@@ -87,6 +97,7 @@ async function runAtualizar () {
       oName.value,
       oMail.value,
       oCpf.value,
+      sAssetType,
       oDescricaoCurta.value,
       oDescricaoLonga.value
     ).send({
@@ -119,6 +130,7 @@ async function runAtualizar () {
   oName.disabled=true;
   oMail.disabled=true;
   oCpf.disabled=true;
+  oAssetType.disabled=true;
   oDescricaoCurta.disabled=true;
   oDescricaoLonga.disabled=true;
 
@@ -130,6 +142,7 @@ async function runRecomecar () {
   var oName = document.getElementById("idNome");
   var oMail = document.getElementById("idEmail");
   var oCpf = document.getElementById("idCpf");
+  var oAssetType = document.getElementById("idAssetType");
   var oDescricaoCurta = document.getElementById("idDescricaoCurta");
   var oDescricaoLonga = document.getElementById("idDescricaoLonga");
 
@@ -144,6 +157,7 @@ async function runRecomecar () {
   oName.value="";
   oMail.value="";
   oCpf.value="";
+  oAssetType.value="";
   oDescricaoCurta.value="";
   oDescricaoLonga.value="";
 
@@ -151,6 +165,7 @@ async function runRecomecar () {
   oName.disabled=true;
   oMail.disabled=true;
   oCpf.disabled=true;
+  oAssetType.disabled=true;
   oDescricaoCurta.disabled=true;
   oDescricaoLonga.disabled=true;
 }

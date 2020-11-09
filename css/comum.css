@@ -19,7 +19,6 @@ body {
     border: none;
     color: white;
     padding: 15px 32px;
-    /* padding: 12px 28px; */
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -73,8 +72,6 @@ body {
 }
 ._logo_icon {
     transform: scale(0.5);
-    /*width: 50%;*/
-    /*height: auto; */
     padding: 25px;
 }
 ._container {
@@ -95,6 +92,9 @@ body {
 }
 ._div_spinner {
     text-align: center;
+}
+._div_byside {
+    display: inline-block;
 }
 ul, li {
     text-align: left;
@@ -121,22 +121,16 @@ input[type=submit] {
     font-size: 16px;
     transition-duration: 0.4s;
     width: 100%;
-    /*background-color: #4CAF50; */
     background-color:MediumSeaGreen;
     color: white;
     padding: 14px 20px;
-    /* padding: 15px 32px; */
-    /*padding: 12px 20px;*/
-    /* margin: 8px 0; */
     margin: 4px 2px;
     border: none;
     border-radius: 12px;
-    /* border-radius: 4px; */
     cursor: pointer;
 }
 input[type=submit]:hover {
     background-color:white;
-    /*background-color: #45a049; */
     color: black; 
     border: 2px solid MediumSeaGreen
 }

@@ -15,8 +15,6 @@ async function runFile2Streamt () { //file in base64 and calculate the hash of t
 };
 
 function _myDebug(oObject_) {
-  // Source: 
-  // https://flaviocopes.com/how-to-inspect-javascript-object/
   //console.clear();
   //console.log(oObject_);
   //console.log(oObject_.toSource);

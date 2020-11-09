@@ -7,9 +7,9 @@
     type="text/javascript" 
     src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.0/web3.min.js">
 </script>
-<script type="text/javascript" src="./js/util.js"></script>
-<script type="text/javascript" src="./js/abi.js"></script>
-<script type="text/javascript" src="./js/connect.js"></script>
+<script type="text/javascript" src="./js/_util.js"></script>
+<script type="text/javascript" src="./js/_abi.js"></script>
+<script type="text/javascript" src="./js/_connect.js"></script>
 <script type="text/javascript" src="./js/registrar.js"></script>
 <title>MOC-Registrar</title>
 <style>
@@ -30,6 +30,19 @@
     <input type="text" id="idEmail" name="sEmail" placeholder="Email..">
     <label for="idCpf">CPF</label>
     <input type="text" id="idCpf" name="sCpf" placeholder="CPF..">
+
+    <label for="idAssetType">Tipo do Patrimônio</label>
+    <select name="AssetType" id="idAssetType">
+    <option hidden disabled selected value>---  Escolha o Tipo do seu Patrimônio  ---</option>        
+    <option value="mineral">Minerais (Joia, Gemas, Metais Preciosos, ...)</option>
+    <option value="arte">Artes (Quadros, Esculturas, Coleções, ...)</option>
+    <option value="contrato">Contratos (Sociedade, Acordos, Parcerias, ...)</option>
+    <option value="imovel">Imóveis (Casa, Apartamento, Loja, Terreno, ...)</option>
+    <option value="direito">Direitos (Opções Compra, Ações Ordinárias, ...)</option>
+    <option value="transferencia">Transferências (Testamento, Doação, Venda, ...)</option>
+    <option value="outro">Outros</option>
+    </select>
+
     <label for="idDescricaoCurta">Descrição</label>
     <input type="text" id="idDescricaoCurta" name="sDescricaoCurta" placeholder="Descrição resumida sobre o bem ..">
     <label for="idDescricaoLonga">Subject</label>

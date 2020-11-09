@@ -1,5 +1,5 @@
 const contract_address = 
-"0x1b87b14337949506705a9654e3f26a49e24b685b";
+"0xb6e6dbf68161b9e16528a16032f9cc60ab440a57";
 
 const ethEnabled = () => {
     if (window.ethereum) {
@@ -15,13 +15,11 @@ if (!ethEnabled()) {
 } else {
     try {
         var oAccounts = web3.eth.getAccounts();
-        //console.log("connect: L18: oAccount = "+oAccounts);
         //_myDebug(oAccounts);
         window.MasterOwnershipControl = new web3.eth.Contract(
             contract_abi, 
             contract_address
         );
-        //console.log("connect: L23: window.MasterOwnershipControl = "+window.MasterOwnershipControl);
         //_myDebug(window.MasterOwnershipControl);
         getCoinBase();
     } catch (err) {
@@ -31,6 +29,5 @@ if (!ethEnabled()) {
   
 async function getCoinBase () {
     window.coinbase = await window.web3.eth.getCoinbase();
-    //console.log("connect: L32: window.coinbase = "+window.coinbase);
 };
   
